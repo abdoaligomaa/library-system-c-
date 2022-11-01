@@ -24,7 +24,8 @@ struct book
     int id;
     string name;
     int quantity;
-
+    user borrowedUsers[20]; // assume that only 100 users can borrow this book
+    int userBorrowedLen;
     book(){
 
     };
@@ -42,6 +43,13 @@ struct book
         id = _id;
         name = _name;
         quantity = _quantity;
+        userBorrowedLen = 0;
+    }
+
+    // add user to userborrowed array to used for borrow book funciton
+    void AddUserToBorrowed(user u)
+    {
+        borrowedUsers[userBorrowedLen++] = u;
     }
 };
 
@@ -76,12 +84,100 @@ struct library
         users[usersLen++] = u;
     }
 
-    void printAllUsers()
+    void borrowBook()
     {
-        cout<<" ******************  all user  *********************"<<endl;
+        string bookName;
+        string userName;
+        book B;
+        user U;
+        cout << "Enter the book name : ";
+        cin >> bookName;
+        cout << "Enter the user name : ";
+        cin >> userName;
+        // TODO : code readable here
+        // get the book by name
+        bool isValidBook = false;
+        for (size_t i = 0; i < booksLen; i++)
+        {
+            if (bookName == books[i].name)
+            {
+                B = books[i];
+                isValidBook = true;
+                break;
+            }
+        }
+        // check is valid book name or not
+        if (!isValidBook)
+        {
+            cout << "there are not book by this name" << endl;
+            cout << "**************************************************" << endl;
+            return;
+        }
+
+        bool isValidUser = false;
+        // get the user by name
         for (size_t i = 0; i < usersLen; i++)
         {
-            cout<<"user number "<<i+1;
+            if (userName == users[i].name)
+            {
+                U = users[i];
+                isValidUser = true;
+
+                // but the user in borrow user in book struct
+                B.AddUserToBorrowed(U);
+                break;
+            }
+        }
+        if (!isValidUser)
+        {
+            cout << "there are not user by this name" << endl;
+            cout << "**************************************************" << endl;
+            return;
+        }
+    }
+
+    void printBorrowedUsers()
+    {
+        string BookName;
+        book B;
+        cout << "book name : ";
+        cin >> BookName;
+
+        // TODO : code readable here
+        // get the book by name
+        bool isValidBook = false;
+        for (size_t i = 0; i < booksLen; i++)
+        {
+            if (BookName == books[i].name)
+            {
+                B = books[i];
+                isValidBook = true;
+                break;
+            }
+        }
+        // check is valid book name or not
+        if (!isValidBook)
+        {
+            cout << "there are not book by this name" << endl;
+            cout << "**************************************************" << endl;
+            return;
+        }
+
+        // print all users from user borrowed array
+        for (size_t i = 0; i < B.userBorrowedLen; i++)
+        {
+            cout << i + 1 << ")"
+                 << " "
+                 << " ,name : " << B.borrowedUsers[i].name << " ,id : " << B.borrowedUsers[i].id << endl;
+        }
+    }
+
+    void printAllUsers()
+    {
+        cout << " ******************  all user  *********************" << endl;
+        for (size_t i = 0; i < usersLen; i++)
+        {
+            cout << "user number " << i + 1;
             cout << " , Name :" << users[i].name << " , Id : " << users[i].id << endl;
         }
     }
@@ -153,16 +249,14 @@ struct library
             else if (choice == 3)
             {
                 addBook();
-                cout << "add new book" << endl;
             }
             else if (choice == 4)
             {
                 printAllBooks();
-                cout << "print all books" << endl;
             }
             else if (choice == 5)
             {
-                cout << "borrow book" << endl;
+                borrowBook();
             }
             else if (choice == 6)
             {
@@ -170,7 +264,7 @@ struct library
             }
             else if (choice == 7)
             {
-                cout << "print all user who borrow a book" << endl;
+                printBorrowedUsers();
             }
             else
             {
@@ -183,8 +277,9 @@ struct library
 
 int main()
 {
-    library l;
+    library l=library();
     l.run();
+    
 
     return 0;
 }
