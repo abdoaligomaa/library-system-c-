@@ -94,7 +94,7 @@ struct library
         cin >> bookName;
         cout << "Enter the user name : ";
         cin >> userName;
-
+        // TODO : code readable here
         // get the book by name
         bool isValidBook = false;
         for (size_t i = 0; i < booksLen; i++)
@@ -107,7 +107,7 @@ struct library
             }
         }
         // check is valid book name or not
-        if (isValidBook)
+        if (!isValidBook)
         {
             cout << "there are not book by this name" << endl;
             cout << "**************************************************" << endl;
@@ -128,11 +128,47 @@ struct library
                 break;
             }
         }
-        if (isValidUser)
+        if (!isValidUser)
         {
             cout << "there are not user by this name" << endl;
             cout << "**************************************************" << endl;
             return;
+        }
+    }
+
+    void printBorrowedUsers()
+    {
+        string BookName;
+        book B;
+        cout << "book name : ";
+        cin >> BookName;
+
+        // TODO : code readable here
+        // get the book by name
+        bool isValidBook = false;
+        for (size_t i = 0; i < booksLen; i++)
+        {
+            if (BookName == books[i].name)
+            {
+                B = books[i];
+                isValidBook = true;
+                break;
+            }
+        }
+        // check is valid book name or not
+        if (!isValidBook)
+        {
+            cout << "there are not book by this name" << endl;
+            cout << "**************************************************" << endl;
+            return;
+        }
+
+        // print all users from user borrowed array
+        for (size_t i = 0; i < B.userBorrowedLen; i++)
+        {
+            cout << i + 1 << ")"
+                 << " "
+                 << " ,name : " << B.borrowedUsers[i].name << " ,id : " << B.borrowedUsers[i].id << endl;
         }
     }
 
