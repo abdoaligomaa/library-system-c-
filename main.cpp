@@ -96,29 +96,43 @@ struct library
         cin >> userName;
 
         // get the book by name
-        bool isValidBook=false;
+        bool isValidBook = false;
         for (size_t i = 0; i < booksLen; i++)
         {
             if (bookName == books[i].name)
             {
                 B = books[i];
-                isValidBook=true;
+                isValidBook = true;
                 break;
             }
         }
         // check is valid book name or not
-        if(isValidBook){
-            cout<<"there are not book by this name"<<endl;
+        if (isValidBook)
+        {
+            cout << "there are not book by this name" << endl;
             cout << "**************************************************" << endl;
             return;
         }
 
+        bool isValidUser = false;
         // get the user by name
         for (size_t i = 0; i < usersLen; i++)
         {
             if (userName == users[i].name)
             {
+                U = users[i];
+                isValidUser = true;
+
+                // but the user in borrow user in book struct
+                B.AddUserToBorrowed(U);
+                break;
             }
+        }
+        if (isValidUser)
+        {
+            cout << "there are not user by this name" << endl;
+            cout << "**************************************************" << endl;
+            return;
         }
     }
 
