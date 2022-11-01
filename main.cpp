@@ -11,11 +11,12 @@ struct user
     user(){
 
     };
-    user(int Id,string S){
-        id=Id;
-        name=S;
+
+    user(int Id, string S)
+    {
+        id = Id;
+        name = S;
     };
-    
 };
 
 struct book
@@ -27,9 +28,34 @@ struct library
 {
     user users[maxUssers];
     book books[maxBooks];
-    user users[maxUssers];
+    int usersLen;
+    int booksLen;
+
+    library()
+    {
+        usersLen = 0;
+        booksLen = 0;
+    }
+
+    void addUser()
+    {
+        int id;
+        string name;
+
+        cout << "User Id : ";
+        cin >> id;
+        cout << "User name : ";
+        cin >> name;
+
+        // TODO : check if the id is unique or not
+
+        // put the new user in users array;
+        user u = user(id, name);
+        users[usersLen]=u;
+    }
+
     
-    
+
     void run()
     {
         cout << "the system is running" << endl;
