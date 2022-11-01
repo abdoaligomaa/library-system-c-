@@ -24,7 +24,8 @@ struct book
     int id;
     string name;
     int quantity;
-
+    user borrowedUsers[100]; // assume that only 100 users can borrow this book
+    int userBorrowedLen;
     book(){
 
     };
@@ -42,6 +43,13 @@ struct book
         id = _id;
         name = _name;
         quantity = _quantity;
+        userBorrowedLen = 0;
+    }
+
+    // add user to userborrowed array to used for borrow book funciton
+    void AddUserToBorrowed(user u)
+    {
+        borrowedUsers[userBorrowedLen++] = u;
     }
 };
 
@@ -76,12 +84,50 @@ struct library
         users[usersLen++] = u;
     }
 
-    void printAllUsers()
+    void borrowBook()
     {
-        cout<<" ******************  all user  *********************"<<endl;
+        string bookName;
+        string userName;
+        book B;
+        user U;
+        cout << "Enter the book name : ";
+        cin >> bookName;
+        cout << "Enter the user name : ";
+        cin >> userName;
+
+        // get the book by name
+        bool isValidBook=false;
+        for (size_t i = 0; i < booksLen; i++)
+        {
+            if (bookName == books[i].name)
+            {
+                B = books[i];
+                isValidBook=true;
+                break;
+            }
+        }
+        // check is valid book name or not
+        if(isValidBook){
+            cout<<"there are not book by this name"<<endl;
+            cout << "**************************************************" << endl;
+            return;
+        }
+
+        // get the user by name
         for (size_t i = 0; i < usersLen; i++)
         {
-            cout<<"user number "<<i+1;
+            if (userName == users[i].name)
+            {
+            }
+        }
+    }
+
+    void printAllUsers()
+    {
+        cout << " ******************  all user  *********************" << endl;
+        for (size_t i = 0; i < usersLen; i++)
+        {
+            cout << "user number " << i + 1;
             cout << " , Name :" << users[i].name << " , Id : " << users[i].id << endl;
         }
     }
