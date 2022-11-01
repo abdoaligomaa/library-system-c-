@@ -254,10 +254,10 @@ struct library
             else if (choice == 4)
             {
                 printAllBooks();
-                cout << "print all books" << endl;
             }
             else if (choice == 5)
             {
+                borrowBook();
                 cout << "borrow book" << endl;
             }
             else if (choice == 6)
@@ -266,6 +266,7 @@ struct library
             }
             else if (choice == 7)
             {
+                printBorrowedUsers();
                 cout << "print all user who borrow a book" << endl;
             }
             else
