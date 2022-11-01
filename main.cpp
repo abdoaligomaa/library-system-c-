@@ -24,7 +24,7 @@ struct book
     int id;
     string name;
     int quantity;
-    user borrowedUsers[100]; // assume that only 100 users can borrow this book
+    user borrowedUsers[20]; // assume that only 100 users can borrow this book
     int userBorrowedLen;
     book(){
 
