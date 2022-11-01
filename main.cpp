@@ -21,7 +21,28 @@ struct user
 
 struct book
 {
-    /* data */
+    int id;
+    string name;
+    int quantity;
+
+    book(){
+
+    };
+
+    // add new book using struct
+    /* book(int _id,string _name,int _quantity){
+        id=_id;
+        name=_name;
+        quantity=_quantity;
+     */
+
+    // add new book using method
+    void addNewBook(int _id, string _name, int _quantity)
+    {
+        id = _id;
+        name = _name;
+        quantity = _quantity;
+    }
 };
 
 struct library
@@ -36,7 +57,7 @@ struct library
         usersLen = 0;
         booksLen = 0;
     }
-
+    // users
     void addUser()
     {
         int id;
@@ -51,18 +72,38 @@ struct library
 
         // put the new user in users array;
         user u = user(id, name);
-        users[usersLen++]=u;
+        users[usersLen++] = u;
     }
 
-    void printAllUsers(){
+    void printAllUsers()
+    {
         for (size_t i = 0; i < usersLen; i++)
         {
-            cout<< "user :"<<users[i].name<<" , Id : "<<users[i].id<<endl;
+            cout << "user :" << users[i].name << " , Id : " << users[i].id << endl;
         }
-        
     }
 
+    // books
+    void addBook()
+    {
+        int id, quantity;
+        string name;
+        cout << " book id : ";
+        cin >> id;
+        cout<<" book name : ";
+        cin >> name;
+        cout << " book quantity : ";
+        cin >> quantity;
+        books[booksLen++].addNewBook(id,name,quantity);
+    }
 
+    void printAllBooks()
+    {
+        for (size_t i = 0; i < booksLen; i++)
+        {
+            cout << "Book :" << books[i].name << " , Id : " << books[i].id << ", quantity: " <<books[i].quantity<< endl;
+        }
+    }
 
     void run()
     {
@@ -73,9 +114,10 @@ struct library
 int main()
 {
     library l;
-    l.addUser();
-    l.addUser();
-    l.printAllUsers();
+    l.addBook();
+    l.addBook();
+    l.addBook();
+    l.printAllBooks();
 
     return 0;
 }
