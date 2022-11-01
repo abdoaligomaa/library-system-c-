@@ -90,34 +90,92 @@ struct library
         string name;
         cout << " book id : ";
         cin >> id;
-        cout<<" book name : ";
+        cout << " book name : ";
         cin >> name;
         cout << " book quantity : ";
         cin >> quantity;
-        books[booksLen++].addNewBook(id,name,quantity);
+        books[booksLen++].addNewBook(id, name, quantity);
     }
 
     void printAllBooks()
     {
         for (size_t i = 0; i < booksLen; i++)
         {
-            cout << "Book :" << books[i].name << " , Id : " << books[i].id << ", quantity: " <<books[i].quantity<< endl;
+            cout << "Book :" << books[i].name << " , Id : " << books[i].id << ", quantity: " << books[i].quantity << endl;
         }
+    }
+
+    int menu()
+    {
+        int TheChoice = -1;
+        cout << "Enter you choice" << endl;
+        cout << "1) Add new user " << endl;
+        cout << "2) Print all users " << endl;
+        cout << "3) Add a book " << endl;
+        cout << "4) Print all Books " << endl;
+        cout << "5) Borrow a Book " << endl;
+        cout << "6) Retrun a Book " << endl;
+        cout << "7) print all users who borrows a book " << endl;
+        cout << "8) Exit " << endl;
+        cout << "**************************************************" << endl;
+        cout << "Your choice is : ";
+        cin >> TheChoice;
+        if (!(TheChoice <= 8 && TheChoice >= 1))
+        {
+            cout << "Your choice in incorrect!!!!!!, please try again " << endl;
+            cout << "**************************************************" << endl;
+            return menu();
+        }
+        return TheChoice;
     }
 
     void run()
     {
-        cout << "the system is running" << endl;
+        while (true)
+        {
+
+            int choice = menu();
+            if (choice == 1)
+            {
+                cout << "add new user" << endl;
+            }
+            else if (choice == 2)
+            {
+                cout << "print all users" << endl;
+            }
+            else if (choice == 3)
+            {
+                cout << "add new book" << endl;
+            }
+            else if (choice == 4)
+            {
+                cout << "print all books" << endl;
+            }
+            else if (choice == 5)
+            {
+                cout << "borrow book" << endl;
+            }
+            else if (choice == 6)
+            {
+                cout << "return book" << endl;
+            }
+            else if (choice == 7)
+            {
+                cout << "print all user who borrow a book" << endl;
+            }
+            else
+            {
+                cout << "The Program is exit" << endl;
+                break;
+            }
+        }
     }
 };
 
 int main()
 {
     library l;
-    l.addBook();
-    l.addBook();
-    l.addBook();
-    l.printAllBooks();
+    l.run();
 
     return 0;
 }
