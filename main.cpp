@@ -21,7 +21,28 @@ struct user
 
 struct book
 {
-    /* data */
+    int id;
+    string name;
+    int quantity;
+
+    book(){
+
+    };
+
+    // add new book using struct
+    /* book(int _id,string _name,int _quantity){
+        id=_id;
+        name=_name;
+        quantity=_quantity;
+     */
+
+    // add new book using method
+    void addNewBook(int _id, string _name, int _quantity)
+    {
+        id = _id;
+        name = _name;
+        quantity = _quantity;
+    }
 };
 
 struct library
@@ -51,18 +72,16 @@ struct library
 
         // put the new user in users array;
         user u = user(id, name);
-        users[usersLen++]=u;
+        users[usersLen++] = u;
     }
 
-    void printAllUsers(){
+    void printAllUsers()
+    {
         for (size_t i = 0; i < usersLen; i++)
         {
-            cout<< "user :"<<users[i].name<<" , Id : "<<users[i].id<<endl;
+            cout << "user :" << users[i].name << " , Id : " << users[i].id << endl;
         }
-        
     }
-
-
 
     void run()
     {
