@@ -105,8 +105,32 @@ struct library
         }
     }
 
+    int menu(){
+    int TheChoice = -1;
+    cout << "Enter you choice" << endl;
+    cout << "1) Add new user " << endl;
+    cout << "2) Print all users " << endl;
+    cout << "3) Add a book " << endl;
+    cout << "4) Print all Books " << endl;
+    cout << "5) Borrow a Book " << endl;
+    cout << "6) Retrun a Book " << endl;
+    cout << "7) print all users who borrows a book " << endl;
+    cout << "8) Exit " << endl;
+    cout << "**************************************************" << endl;
+    cout << "Your choice is : ";
+    cin >> TheChoice;
+    if (!(TheChoice <= 8 && TheChoice >= 1))
+    {
+        cout << "Your choice in incorrect!!!!!!, please try again " << endl;
+        cout << "**************************************************" << endl;
+        return menu();
+    }
+    return TheChoice;
+    }
+
     void run()
     {
+        
         cout << "the system is running" << endl;
     }
 };
