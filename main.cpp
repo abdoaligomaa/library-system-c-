@@ -51,10 +51,18 @@ struct library
 
         // put the new user in users array;
         user u = user(id, name);
-        users[usersLen]=u;
+        users[usersLen++]=u;
     }
 
-    
+    void printAllUsers(){
+        for (size_t i = 0; i < usersLen; i++)
+        {
+            cout<< "user :"<<users[i].name<<" , Id : "<<users[i].id<<endl;
+        }
+        
+    }
+
+
 
     void run()
     {
@@ -65,7 +73,9 @@ struct library
 int main()
 {
     library l;
-    l.run();
+    l.addUser();
+    l.addUser();
+    l.printAllUsers();
 
     return 0;
 }
