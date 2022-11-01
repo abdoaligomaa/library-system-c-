@@ -1,8 +1,21 @@
 #include <iostream>
 using namespace std;
+
+const int maxUssers = 1000;
+const int maxBooks = 1000;
+
 struct user
 {
-    /* data */
+    int id;
+    string name;
+    user(){
+
+    };
+    user(int Id,string S){
+        id=Id;
+        name=S;
+    };
+    
 };
 
 struct book
@@ -12,6 +25,11 @@ struct book
 
 struct library
 {
+    user users[maxUssers];
+    book books[maxBooks];
+    user users[maxUssers];
+    
+    
     void run()
     {
         cout << "the system is running" << endl;
