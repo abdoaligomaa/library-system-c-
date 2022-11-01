@@ -57,7 +57,7 @@ struct library
         usersLen = 0;
         booksLen = 0;
     }
-
+    // users
     void addUser()
     {
         int id;
@@ -83,6 +83,28 @@ struct library
         }
     }
 
+    // books
+    void addBook()
+    {
+        int id, quantity;
+        string name;
+        cout << " book id : ";
+        cin >> id;
+        cout<<" book name : ";
+        cin >> name;
+        cout << " book quantity : ";
+        cin >> quantity;
+        books[booksLen++].addNewBook(id,name,quantity);
+    }
+
+    void printAllBooks()
+    {
+        for (size_t i = 0; i < booksLen; i++)
+        {
+            cout << "Book :" << books[i].name << " , Id : " << books[i].id << ", quantity: " <<books[i].quantity<< endl;
+        }
+    }
+
     void run()
     {
         cout << "the system is running" << endl;
@@ -92,9 +114,10 @@ struct library
 int main()
 {
     library l;
-    l.addUser();
-    l.addUser();
-    l.printAllUsers();
+    l.addBook();
+    l.addBook();
+    l.addBook();
+    l.printAllBooks();
 
     return 0;
 }
