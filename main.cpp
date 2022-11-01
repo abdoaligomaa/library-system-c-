@@ -67,6 +67,7 @@ struct library
         cin >> id;
         cout << "User name : ";
         cin >> name;
+        cout << "**************************************************" << endl;
 
         // TODO : check if the id is unique or not
 
@@ -77,9 +78,11 @@ struct library
 
     void printAllUsers()
     {
+        cout<<" ******************  all user  *********************"<<endl;
         for (size_t i = 0; i < usersLen; i++)
         {
-            cout << "user :" << users[i].name << " , Id : " << users[i].id << endl;
+            cout<<"user number "<<i+1;
+            cout << " , Name :" << users[i].name << " , Id : " << users[i].id << endl;
         }
     }
 
@@ -94,6 +97,8 @@ struct library
         cin >> name;
         cout << " book quantity : ";
         cin >> quantity;
+        cout << "**************************************************" << endl;
+
         books[booksLen++].addNewBook(id, name, quantity);
     }
 
@@ -103,7 +108,9 @@ struct library
         {
             cout << "Book :" << books[i].name << " , Id : " << books[i].id << ", quantity: " << books[i].quantity << endl;
         }
+        cout << "**************************************************" << endl;
     }
+    // run prograge
 
     int menu()
     {
@@ -137,18 +144,20 @@ struct library
             int choice = menu();
             if (choice == 1)
             {
-                cout << "add new user" << endl;
+                addUser();
             }
             else if (choice == 2)
             {
-                cout << "print all users" << endl;
+                printAllUsers();
             }
             else if (choice == 3)
             {
+                addBook();
                 cout << "add new book" << endl;
             }
             else if (choice == 4)
             {
+                printAllBooks();
                 cout << "print all books" << endl;
             }
             else if (choice == 5)
