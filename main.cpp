@@ -53,6 +53,18 @@ struct book
     }
 };
 
+// methods
+// print all users
+void PrintUsers(user arr[], int len)
+{
+    cout << " ******************  all user  *********************" << endl;
+    for (size_t i = 0; i < len; i++)
+    {
+        cout << "user number " << i + 1;
+        cout << " , Name :" << arr[i].name << " , Id : " << arr[i].id << endl;
+    }
+}
+
 struct library
 {
     user users[maxUssers];
@@ -174,12 +186,7 @@ struct library
 
     void printAllUsers()
     {
-        cout << " ******************  all user  *********************" << endl;
-        for (size_t i = 0; i < usersLen; i++)
-        {
-            cout << "user number " << i + 1;
-            cout << " , Name :" << users[i].name << " , Id : " << users[i].id << endl;
-        }
+        PrintUsers(users, usersLen);
     }
 
     // books
@@ -277,9 +284,8 @@ struct library
 
 int main()
 {
-    library l=library();
+    library l = library();
     l.run();
-    
 
     return 0;
 }
