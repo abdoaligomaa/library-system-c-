@@ -47,7 +47,7 @@ struct book
     }
 
     // add user to userborrowed array to used for borrow book funciton
-    void AddUserToBorrowed(user u)
+    void AddUserToBorrowed(const user &u)
     {
         borrowedUsers[userBorrowedLen++] = u;
     }
@@ -108,13 +108,12 @@ user getUserByName(user arr[], int len, string userName)
     {
         if (userName == arr[i].name)
         {
-            return arr[i];   
+            return arr[i];
         }
-        
     }
 }
 
-// get book by name 
+// get book by name
 book getBookByName(book arr[], int len, string bookName)
 {
     for (size_t i = 0; i < len; i++)
@@ -160,81 +159,44 @@ struct library
     {
         string bookName;
         string userName;
-        book B;
-        user U;
+
         cout << "Enter the book name : ";
         cin >> bookName;
         cout << "Enter the user name : ";
         cin >> userName;
+
         // TODO : code readable here
+        // check if valid user and book or not
+        if (isValidBook(books, booksLen, bookName) && isValidUser(users, usersLen, userName))
+        {
+            cout << "the inputes (user,book) doesn't true you should Enter valid book or user " << endl;
+            cout << "**************************************************" << endl;
+            return;
+        }
         // get the book by name
-        bool isValidBook = false;
-        for (size_t i = 0; i < booksLen; i++)
-        {
-            if (bookName == books[i].name)
-            {
-                B = books[i];
-                isValidBook = true;
-                break;
-            }
-        }
-        // check is valid book name or not
-        if (!isValidBook)
-        {
-            cout << "there are not book by this name" << endl;
-            cout << "**************************************************" << endl;
-            return;
-        }
+        // const book &B = getBookByName(books, booksLen, bookName);
+        // const user &U = getUserByName(users, usersLen, userName);
 
-        bool isValidUser = false;
-        // get the user by name
-        for (size_t i = 0; i < usersLen; i++)
-        {
-            if (userName == users[i].name)
-            {
-                U = users[i];
-                isValidUser = true;
-
-                // but the user in borrow user in book struct
-                B.AddUserToBorrowed(U);
-                break;
-            }
-        }
-        if (!isValidUser)
-        {
-            cout << "there are not user by this name" << endl;
-            cout << "**************************************************" << endl;
-            return;
-        }
+        getBookByName(books, booksLen, bookName).AddUserToBorrowed(getUserByName(users, usersLen, userName));
     }
 
     void printBorrowedUsers()
     {
         string BookName;
-        book B;
+        
         cout << "book name : ";
         cin >> BookName;
 
         // TODO : code readable here
-        // get the book by name
-        bool isValidBook = false;
-        for (size_t i = 0; i < booksLen; i++)
+        // validate input
+        if (isValidBook(books, booksLen, bookName))
         {
-            if (BookName == books[i].name)
-            {
-                B = books[i];
-                isValidBook = true;
-                break;
-            }
-        }
-        // check is valid book name or not
-        if (!isValidBook)
-        {
-            cout << "there are not book by this name" << endl;
+            cout << "the inputes (,book) doesn't true you should Enter valid book  " << endl;
             cout << "**************************************************" << endl;
             return;
         }
 
+        const book &B=getBookByName(books,booksLen,BookName);
         // print all users from user borrowed array
         for (size_t i = 0; i < B.userBorrowedLen; i++)
         {
