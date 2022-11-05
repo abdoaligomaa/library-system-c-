@@ -167,7 +167,7 @@ struct library
 
         // TODO : code readable here
         // check if valid user and book or not
-        if (isValidBook(books, booksLen, bookName) && isValidUser(users, usersLen, userName))
+        if (!(isValidBook(books, booksLen, bookName) && isValidUser(users, usersLen, userName)))
         {
             cout << "the inputes (user,book) doesn't true you should Enter valid book or user " << endl;
             cout << "**************************************************" << endl;
@@ -182,22 +182,23 @@ struct library
 
     void printBorrowedUsers()
     {
-        string BookName;
+        string bookName;
         
         cout << "book name : ";
-        cin >> BookName;
+        cin >> bookName;
 
         // TODO : code readable here
         // validate input
-        if (isValidBook(books, booksLen, bookName))
+        if (!isValidBook(books, booksLen, bookName))
         {
             cout << "the inputes (,book) doesn't true you should Enter valid book  " << endl;
             cout << "**************************************************" << endl;
             return;
         }
 
-        const book &B=getBookByName(books,booksLen,BookName);
+        const book &B=getBookByName(books,booksLen,bookName);
         // print all users from user borrowed array
+        cout<<"print all users who borrowed this book"<<endl;
         for (size_t i = 0; i < B.userBorrowedLen; i++)
         {
             cout << i + 1 << ")"
