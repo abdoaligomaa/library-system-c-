@@ -76,6 +76,36 @@ void PrintBooks(book arr[], int len)
     }
     cout << "**************************************************" << endl;
 }
+// validate by is valid bookname
+bool isValidBook(book arr[], int len, string bookName)
+{
+    for (size_t i = 0; i < len; i++)
+    {
+        if (bookName == arr[i].name)
+        {
+            return true;
+        }
+        return false;
+    }
+}
+
+// // validate by is valid user name
+bool isValidUser(user arr[], int len, string userName)
+{
+    for (size_t i = 0; i < len; i++)
+    {
+        if (userName == arr[i].name)
+        {
+            return true;
+        }
+        return false;
+    }
+}
+// get user by name
+// user getUserByName(user arr[], int len, string name)
+// {
+
+// }
 
 struct library
 {
@@ -219,7 +249,7 @@ struct library
 
     void printAllBooks()
     {
-        PrintBooks(books,booksLen);
+        PrintBooks(books, booksLen);
     }
     // run prograge
 
