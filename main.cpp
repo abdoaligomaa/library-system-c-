@@ -102,11 +102,29 @@ bool isValidUser(user arr[], int len, string userName)
     }
 }
 // get user by name
-// user getUserByName(user arr[], int len, string name)
-// {
+user getUserByName(user arr[], int len, string userName)
+{
+    for (size_t i = 0; i < len; i++)
+    {
+        if (userName == arr[i].name)
+        {
+            return arr[i];   
+        }
+        
+    }
+}
 
-// }
-
+// get book by name 
+book getBookByName(book arr[], int len, string bookName)
+{
+    for (size_t i = 0; i < len; i++)
+    {
+        if (bookName == arr[i].name)
+        {
+            return arr[i];
+        }
+    }
+}
 struct library
 {
     user users[maxUssers];
