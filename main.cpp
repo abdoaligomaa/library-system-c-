@@ -24,7 +24,7 @@ struct book
     int id;
     string name;
     int quantity;
-    user borrowedUsers[20]; // assume that only 100 users can borrow this book
+    string borrowedUsers[20]; // assume that only 100 users can borrow this book
     int userBorrowedLen;
     book(){
 
@@ -47,9 +47,9 @@ struct book
     }
 
     // add user to userborrowed array to used for borrow book funciton
-    void AddUserToBorrowed(const user &u)
+    void AddUserToBorrowed(string s)
     {
-        borrowedUsers[userBorrowedLen++] = u;
+        borrowedUsers[userBorrowedLen++] = s;
     }
 };
 
@@ -65,6 +65,19 @@ void PrintUsers(user arr[], int len)
     }
 }
 
+void printUserByName(user arr[], int len, string name)
+{
+    cout << " ******************  users who borrow book  *********************" << endl;
+    int cnt = 0;
+    for (size_t i = 0; i < len; i++)
+    {
+        if (arr[i].name == name)
+        {
+            cout << cnt << " )";
+            cout << " Name :" << arr[i].name << " , Id : " << arr[i].id << endl;
+        }
+    }
+}
 // print all books
 void PrintBooks(book arr[], int len)
 {
@@ -85,8 +98,8 @@ bool isValidBook(book arr[], int len, string bookName)
         {
             return true;
         }
-        return false;
     }
+    return false;
 }
 
 // // validate by is valid user name
@@ -98,31 +111,33 @@ bool isValidUser(user arr[], int len, string userName)
         {
             return true;
         }
-        return false;
     }
+    return false;
 }
 // get user by name
-user getUserByName(user arr[], int len, string userName)
+int getUserIndexByName(user arr[], int len, string userName)
 {
     for (size_t i = 0; i < len; i++)
     {
         if (userName == arr[i].name)
         {
-            return arr[i];
+            return i;
         }
     }
+    return -1;
 }
 
 // get book by name
-book getBookByName(book arr[], int len, string bookName)
+int getBookIndexByName(book arr[], int len, string bookName)
 {
     for (size_t i = 0; i < len; i++)
     {
         if (bookName == arr[i].name)
         {
-            return arr[i];
+            return i;
         }
     }
+    return -1;
 }
 struct library
 {
@@ -173,17 +188,18 @@ struct library
             cout << "**************************************************" << endl;
             return;
         }
-        // get the book by name
-        // const book &B = getBookByName(books, booksLen, bookName);
-        // const user &U = getUserByName(users, usersLen, userName);
+        // get book index and user index
+        int bookIndex = getBookIndexByName(books, booksLen, bookName);
+        int userIndex = getUserIndexByName(users, usersLen, userName);
 
-        getBookByName(books, booksLen, bookName).AddUserToBorrowed(getUserByName(users, usersLen, userName));
+        // borrow operation
+        books[bookIndex].AddUserToBorrowed(userName);
     }
 
     void printBorrowedUsers()
     {
         string bookName;
-        
+
         cout << "book name : ";
         cin >> bookName;
 
@@ -196,14 +212,13 @@ struct library
             return;
         }
 
-        const book &B=getBookByName(books,booksLen,bookName);
+        int bookIndex = getBookIndexByName(books, booksLen, bookName);
+
         // print all users from user borrowed array
-        cout<<"print all users who borrowed this book"<<endl;
-        for (size_t i = 0; i < B.userBorrowedLen; i++)
+        cout << "print all users who borrowed this book" << endl;
+        for (size_t i = 0; i < books[bookIndex].userBorrowedLen; i++)
         {
-            cout << i + 1 << ")"
-                 << " "
-                 << " ,name : " << B.borrowedUsers[i].name << " ,id : " << B.borrowedUsers[i].id << endl;
+            printUserByName(users, usersLen, books[bookIndex].borrowedUsers[i]);
         }
     }
 
