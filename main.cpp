@@ -46,10 +46,18 @@ struct book
         userBorrowedLen = 0;
     }
 
+    // borrow function
+    bool canBorrow()
+    {
+        if (quantity > 0)
+            return true;
+        return false;
+    }
     // add user to userborrowed array to used for borrow book funciton
     void AddUserToBorrowed(string s)
     {
         borrowedUsers[userBorrowedLen++] = s;
+        quantity--;
     }
 
     bool isBorrowd(string userName)
@@ -212,7 +220,14 @@ struct library
             cout << " ***************************************" << endl;
             return;
         }
-
+        // check if there are available copies to borrow;
+        bool canBorrow = books[bookIndex].canBorrow();
+        if (!canBorrow)
+        {
+            cout << "the quantity of this book exits, you can't borrow " << endl;
+            cout << " ***************************************" << endl;
+            return;
+        }
         // borrow operation
         books[bookIndex]
             .AddUserToBorrowed(userName);
