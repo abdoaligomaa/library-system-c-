@@ -30,13 +30,6 @@ struct book
 
     };
 
-    // add new book using struct
-    /* book(int _id,string _name,int _quantity){
-        id=_id;
-        name=_name;
-        quantity=_quantity;
-     */
-
     // add new book using method
     void addNewBook(int _id, string _name, int _quantity)
     {
@@ -70,6 +63,29 @@ struct book
             }
         }
         return false;
+    }
+
+    void removeBorrowUser(string userName)
+    {
+        int index = -1;
+        for (size_t i = 0; i < userBorrowedLen; i++)
+        {
+            if (userName == borrowedUsers[i])
+            {
+                index = i;
+            }
+            break;
+        }
+        // remove the name from the borrowdedUsers array  => shift left
+        for (size_t i = index; i < userBorrowedLen - 1; i++)
+        {
+            borrowedUsers[i] = borrowedUsers[i + 1];
+        }
+
+        // increase the quantity and decrease userborrowlen; 
+        quantity++;
+        userBorrowedLen--;
+
     }
 };
 
@@ -233,6 +249,40 @@ struct library
             .AddUserToBorrowed(userName);
     }
 
+    // return book function
+    void userRetrunBook()
+    {
+        string bookName;
+        string userName;
+
+        cout << "Enter the book name : ";
+        cin >> bookName;
+        cout << "Enter the user name : ";
+        cin >> userName;
+
+        // check if valid user and book or not
+        if (!(isValidBook(books, booksLen, bookName) && isValidUser(users, usersLen, userName)))
+        {
+            cout << "the inputes (user,book) doesn't true you should Enter valid book or user " << endl;
+            cout << "**************************************************" << endl;
+            return;
+        }
+
+        int bookIndex = getBookIndexByName(books, booksLen, bookName);
+        int userIndex = getUserIndexByName(users, usersLen, userName);
+
+        // check if this user is borrowed this book?
+        bool isborrowed = books[bookIndex].isBorrowd(userName);
+        if (!isborrowed)
+        {
+            cout << "user did't borrow this book you can't retun it !!" << endl;
+            cout << " ***************************************" << endl;
+            return;
+        }
+        // remove from array operation
+        books[bookIndex].removeBorrowUser(userName);
+    }
+
     void printBorrowedUsers()
     {
         string bookName;
@@ -338,7 +388,7 @@ struct library
             }
             else if (choice == 6)
             {
-                cout << "return book" << endl;
+                userRetrunBook();
             }
             else if (choice == 7)
             {
