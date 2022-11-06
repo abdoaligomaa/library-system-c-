@@ -51,6 +51,18 @@ struct book
     {
         borrowedUsers[userBorrowedLen++] = s;
     }
+
+    bool isBorrowd(string userName)
+    {
+        for (size_t i = 0; i < userBorrowedLen; i++)
+        {
+            if (userName == borrowedUsers[i])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 };
 
 // methods
@@ -67,8 +79,7 @@ void PrintUsers(user arr[], int len)
 
 void printUserByName(user arr[], int len, string name)
 {
-    cout << " ******************  users who borrow book  *********************" << endl;
-    int cnt = 0;
+    int cnt = 1;
     for (size_t i = 0; i < len; i++)
     {
         if (arr[i].name == name)
@@ -76,6 +87,7 @@ void printUserByName(user arr[], int len, string name)
             cout << cnt << " )";
             cout << " Name :" << arr[i].name << " , Id : " << arr[i].id << endl;
         }
+        cnt++;
     }
 }
 // print all books
@@ -192,8 +204,18 @@ struct library
         int bookIndex = getBookIndexByName(books, booksLen, bookName);
         int userIndex = getUserIndexByName(users, usersLen, userName);
 
+        // check if this user is borrowed this book?
+        bool isborrowed = books[bookIndex].isBorrowd(userName);
+        if (isborrowed)
+        {
+            cout << "you can't borrow two copies from this book, you already borrow one" << endl;
+            cout << " ***************************************" << endl;
+            return;
+        }
+
         // borrow operation
-        books[bookIndex].AddUserToBorrowed(userName);
+        books[bookIndex]
+            .AddUserToBorrowed(userName);
     }
 
     void printBorrowedUsers()
@@ -215,7 +237,7 @@ struct library
         int bookIndex = getBookIndexByName(books, booksLen, bookName);
 
         // print all users from user borrowed array
-        cout << "print all users who borrowed this book" << endl;
+        cout << " ******************  users who borrow book  *********************" << endl;
         for (size_t i = 0; i < books[bookIndex].userBorrowedLen; i++)
         {
             printUserByName(users, usersLen, books[bookIndex].borrowedUsers[i]);
