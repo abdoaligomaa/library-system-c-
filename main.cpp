@@ -227,10 +227,11 @@ struct library
         user u = user(id, name);
         users[usersLen++] = u;
     }
+    
     void searchForBook()
     {
         string s;
-        cout << "Enter the bookName or some letter of it";
+        cout << "Enter the bookName or some letter of it : ";
         cin >> s;
         for (size_t i = 0; i < booksLen; i++)
         {
@@ -382,7 +383,8 @@ struct library
         cout << "5) Borrow a Book " << endl;
         cout << "6) Retrun a Book " << endl;
         cout << "7) print all users who borrows a book " << endl;
-        cout << "8) Exit " << endl;
+        cout << "8) Search for book  " << endl;
+        cout << "9) Exit " << endl;
         cout << "**************************************************" << endl;
         cout << "Your choice is : ";
         cin >> TheChoice;
@@ -428,6 +430,10 @@ struct library
             else if (choice == 7)
             {
                 printBorrowedUsers();
+            }
+            else if (choice == 8)
+            {
+                searchForBook();
             }
             else
             {
