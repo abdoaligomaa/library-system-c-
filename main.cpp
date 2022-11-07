@@ -19,6 +19,16 @@ struct user
     };
 };
 
+bool isPrfix(string s, string name)
+{
+    for (size_t i = 0; i < s.length(); i++)
+    {
+        if (!(s[i] == name[i]))
+            return false;
+    }
+    return true;
+}
+
 struct book
 {
     int id;
@@ -65,6 +75,15 @@ struct book
         return false;
     }
 
+    bool hasPrfix(string s)
+    {
+        if (s.length() > name.length())
+            return false;
+        if (isPrfix(s, name))
+            return true;
+        return false;
+    }
+
     void removeBorrowUser(string userName)
     {
         int index = -1;
@@ -82,10 +101,13 @@ struct book
             borrowedUsers[i] = borrowedUsers[i + 1];
         }
 
-        // increase the quantity and decrease userborrowlen; 
+        // increase the quantity and decrease userborrowlen;
         quantity++;
         userBorrowedLen--;
-
+    }
+    void print()
+    {
+        cout << "book id : " << id << " , book name : " << name << " ,book quantity : " << quantity << endl;
     }
 };
 
@@ -204,6 +226,20 @@ struct library
         // put the new user in users array;
         user u = user(id, name);
         users[usersLen++] = u;
+    }
+    
+    void searchForBook()
+    {
+        string s;
+        cout << "Enter the bookName or some letter of it : ";
+        cin >> s;
+        for (size_t i = 0; i < booksLen; i++)
+        {
+            if (books[i].hasPrfix(s))
+            {
+                books[i].print();
+            }
+        }
     }
 
     void borrowBook()
@@ -347,7 +383,8 @@ struct library
         cout << "5) Borrow a Book " << endl;
         cout << "6) Retrun a Book " << endl;
         cout << "7) print all users who borrows a book " << endl;
-        cout << "8) Exit " << endl;
+        cout << "8) Search for book  " << endl;
+        cout << "9) Exit " << endl;
         cout << "**************************************************" << endl;
         cout << "Your choice is : ";
         cin >> TheChoice;
@@ -393,6 +430,10 @@ struct library
             else if (choice == 7)
             {
                 printBorrowedUsers();
+            }
+            else if (choice == 8)
+            {
+                searchForBook();
             }
             else
             {
